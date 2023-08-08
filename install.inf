@@ -3,7 +3,7 @@ title=Clipboard Catcher
 desc=Continuous insert from clipboard on/off
 type=cudatext-plugin
 subdir=cuda_clipboard_catcher
-homepage=/home/one/.config/cudatext/py/cuda_clipboard_catcher/install.inf
+homepage=/https://github.com/mix-7/cuda_clipboard_catcher/
 
 [item1]
 section=commands
