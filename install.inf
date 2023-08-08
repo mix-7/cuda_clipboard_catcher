@@ -5,7 +5,7 @@ title=Clipboard Catcher
 desc=Continuous insert from clipboard on/off
 type=cudatext-plugin
 subdir=cuda_clipboard_catcher
-homepage=(Fill the GitHub repo URL)
+homepage=/home/one/.config/cudatext/py/cuda_clipboard_catcher/install.inf
 
 [item1]
 section=commands
@@ -19,7 +19,7 @@ method=run
 #events=on_app_activate,on_app_deactivate,on_focus,on_tab_menu
 #events=on_app_activate,on_app_deactivate,on_focus,on_tab_menu
 #menu=o
- 
+
 ;[item20]
 ;section=commands
 ;#caption=Test command
@@ -29,5 +29,5 @@ method=run
 
 #menu=o
 #С menu=o переходит в Options
- 
+
 
