@@ -18,6 +18,7 @@ new_clip = ''    # current clipboard contents
 h_bar = app.app_proc(app.PROC_GET_MAIN_STATUSBAR, '') # main statusbar handler  (like vim mode plugin)
 color_back = app.statusbar_proc(h_bar, app.STATUSBAR_GET_COLOR_BACK) # status bar background color
 n_cell = app.statusbar_proc(h_bar, app.STATUSBAR_ADD_CELL, index=-1, tag=0, value="CC ON")            # if None - ?
+app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_SIZE, index=n_cell, tag=0, value=25)       
 
 
 class Command:
@@ -64,13 +65,15 @@ class Command:
         global n_cell
         global color_back
         global time_int
-         
+        #print(app.ed_my.get_filename())
+        #print(ed_current.get_filename())
         h_my = app.ed.get_prop(app.PROP_HANDLE_SELF, '') # запомним, откуда, из какой вкладки был вызван Clipboard catcher
         ed_current =  app.Editor(h_my)        # запомним, откуда, из какой вкладки был вызван Clipboard catcher  
-
+        print("ed_current.get_filename() =", ed_current.get_filename())
+       
         if not COPY_CLIPS: # Clipboard catcher was turned off, turn on
             COPY_CLIPS = True 
-            app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_TEXT, n_cell, tag=0, value="CC ON")
+            #app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_TEXT, n_cell, tag=0, value="CC ON")
             app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_COLOR_BACK, n_cell, tag=0, value=0xFF0000)
 
             app.msg_status("Clipboard Catcher ON", process_messages=False)
