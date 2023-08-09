@@ -6,6 +6,10 @@ subdir=cuda_clipboard_catcher
 homepage=https://github.com/mix-7/cuda_clipboard_catcher/
 
 [item1]
+section=events
+events=on_close
+
+[item2]
 section=commands
 caption=Clipboard Catcher Toggle
 method=run
