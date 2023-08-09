@@ -91,8 +91,9 @@ class Command:
     def on_close(self, ed_self):
         global COPY_CLIPS
         global ed_current
-        
-        if (ed_self == ed_current): # закрыли нашу вкладку
-            COPY_CLIPS = True # остановим плагин 
-            print("Clipboard Catcher Tab closed")
-            self.run()   # stop plugin
+        if COPY_CLIPS: # проверяем на закрытие вкладку только, если плагин был запущен (тогда ed_current определен)
+            if (ed_self == ed_current): # закрыли нашу вкладку
+                #COPY_CLIPS = True # остановим плагин 
+                print("Clipboard Catcher Tab closed")
+                app.msg_status("Clipboard Catcher Tab closed", process_messages=False)
+                self.run()   # stop plugin
