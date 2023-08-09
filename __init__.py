@@ -65,18 +65,17 @@ class Command:
         global n_cell
         global color_back
         global time_int
-        #print(app.ed_my.get_filename())
-        #print(ed_current.get_filename())
-        h_my = app.ed.get_prop(app.PROP_HANDLE_SELF, '') # запомним, откуда, из какой вкладки был вызван Clipboard catcher
-        ed_current =  app.Editor(h_my)        # запомним, откуда, из какой вкладки был вызван Clipboard catcher  
-        print("ed_current.get_filename() =", ed_current.get_filename())
-       
+
         if not COPY_CLIPS: # Clipboard catcher was turned off, turn on
             COPY_CLIPS = True 
-            #app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_TEXT, n_cell, tag=0, value="CC ON")
+            h_my = app.ed.get_prop(app.PROP_HANDLE_SELF, '') # запомним, откуда, из какой вкладки был вызван Clipboard catcher
+            ed_current =  app.Editor(h_my)        # запомним, откуда, из какой вкладки был вызван Clipboard catcher  
+            #print("ed_current.get_filename() =", ed_current.get_filename())
+            file_name = ed_current.get_filename()
             app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_COLOR_BACK, n_cell, tag=0, value=0xFF0000)
-
-            app.msg_status("Clipboard Catcher ON", process_messages=False)
+            msg = "Clipboard Catcher ON    Tab " + ed_current.get_prop(app.PROP_TAB_TITLE) + ", file " + file_name 
+            app.msg_status(msg, process_messages=False)
+            print(msg)
             new_clip = app.app_proc(app.PROC_GET_CLIP, "")
             last_clip = new_clip #    in order not to immediately insert the existing contents of the buffer (when checking for buffer updates)  
             app.timer_proc(app.TIMER_START, self.timer_tick, time_int)
@@ -87,3 +86,13 @@ class Command:
             app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_TEXT, n_cell, tag=0, value="")
             app.statusbar_proc(h_bar, app.STATUSBAR_SET_CELL_COLOR_BACK, n_cell, tag=0, value=color_back)
             app.msg_status("Clipboard Catcher OFF", process_messages=False)
+            print("Clipboard Catcher OFF")
+            
+    def on_close(self, ed_self):
+        global COPY_CLIPS
+        global ed_current
+        
+        if (ed_self == ed_current): # закрыли нашу вкладку
+            COPY_CLIPS = True # остановим плагин 
+            print("Clipboard Catcher Tab closed")
+            self.run()   # stop plugin
